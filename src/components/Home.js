@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 
-class LeaderBoard extends Component {
+
+class Home extends Component {
 
   render() {
     return (
       <div>
-        Leader Board
+        Home
       </div>
     )
   }
 }
 
-export default LeaderBoard
+export default Home

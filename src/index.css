@@ -13,4 +13,57 @@ code {
     monospace;
 }
 
+.Login form {
+  margin: 0 auto;
+  max-width: 320px;
+}
+.center {
+  text-align: center;
+  margin: auto;
+}
+.btn {
+  padding: 10px;
+}
+
+.nav ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  text-decoration: none;
+}
+
+.nav li:first-child {
+  padding-left: 0;
+}
+
+ul {
+  padding-left: 0;
+}
+
+li {
+  list-style-type: none;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.textarea {
+  border-radius: 4px;
+  border: 1px solid #dad7d7;
+  padding: 25px;
+  font-size: 15px;
+  height: 75px;
+}
+
+.new-question {
+  width: 100%;
+  max-width: 590px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+span {
+  margin-top: 5px;
+}
+
 @import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")

@@ -1,17 +1,26 @@
 import React, { Component } from 'react'
-import { Button, Form, FormGroup, FormControl, ControlLabel, MenuItem, DropdownButton } from 'react-bootstrap'
+import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import { connect } from 'react-redux'
 import { setAuthedUser } from '../actions/authedUser'
 
 class Login extends Component {
 
   state = {
-    userID: ''
+    userID: ""
   }
 
-  handleChange = (e) => {
-    console.log(this.inputEl)
+  /*handleChange = (e) => {
+    e.preventDefault()
     const userID = this.inputEl.value
+    this.setState(() => ({
+      userID
+    }))
+    console.log(this.state)
+  }*/
+
+  handleChange = (e) => {
+    e.preventDefault()
+    const userID = e.target.value
     this.setState(() => ({
       userID
     }))
@@ -29,23 +38,37 @@ class Login extends Component {
   render() {
     const { users } = this.props
     const { userID } = this.state
+
     return (
-      <Form>
-        <FormGroup controlId='formControlSelect'>
-          <ControlLabel>Select User</ControlLabel>
-          <FormControl
-            componentClass="select"
-            placeholder="Select User"
-            inputRef={el => this.inputEl = el}
-            onChange={this.handleChange}
+      <div className="Login">
+        <form onSubmit={this.handleChange}>
+          <FormGroup controlId="user" bsSize="large">
+            <ControlLabel>Select user</ControlLabel>
+            <FormControl
+              componentClass="select"
+              autoFocus
+              placeholder="Select user"
+              inputRef={el => this.inputEl = el}
+              onChange={this.handleChange}
+            >
+              {
+                Object.keys(users).map(user => (
+                  <option key={user} value={user}>{user}</option>
+                ))
+              }
+            </FormControl>
+          </FormGroup>
+          <Button
+            block
+            bsSize="large"
+            disabled={!userID}
+            type="submit"
+            onClick={this.onLogin}
           >
-            {Object.keys(users).map(user => (
-              <option value={user}>{user}</option>
-            ))}
-          </FormControl>
-        </FormGroup>
-        <Button onClick={this.onLogin} disabled={!userID}>Login</Button>
-      </Form>
+            Login
+          </Button>
+        </form>
+      </div>
     )
   }
 }
