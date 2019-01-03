@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 import { connect } from 'react-redux'
 import { setAuthedUser } from '../actions/authedUser'
 
@@ -9,23 +9,14 @@ class Login extends Component {
     userID: ""
   }
 
-  /*handleChange = (e) => {
-    e.preventDefault()
-    const userID = this.inputEl.value
-    this.setState(() => ({
-      userID
-    }))
-    console.log(this.state)
-  }*/
-
   handleChange = (e) => {
     e.preventDefault()
     const userID = e.target.value
     this.setState(() => ({
       userID
     }))
-    console.log(this.state)
   }
+
 
   onLogin = () => {
     const { userID } = this.state
@@ -41,33 +32,31 @@ class Login extends Component {
 
     return (
       <div className="Login">
-        <form onSubmit={this.handleChange}>
-          <FormGroup controlId="user" bsSize="large">
-            <ControlLabel>Select user</ControlLabel>
-            <FormControl
-              componentClass="select"
-              autoFocus
-              placeholder="Select user"
-              inputRef={el => this.inputEl = el}
+        <Form>
+          <FormGroup>
+            <Label for="selectUser">Select User</Label>
+            <Input
+              type="select"
+              name="select"
+              value={userID}
               onChange={this.handleChange}
             >
+              <option value="" disabled>Please select a user</option>
               {
                 Object.keys(users).map(user => (
-                  <option key={user} value={user}>{user}</option>
+                  <option key={user} value={user}>{users[user].name}</option>
                 ))
               }
-            </FormControl>
+            </Input>
           </FormGroup>
           <Button
-            block
-            bsSize="large"
-            disabled={!userID}
-            type="submit"
             onClick={this.onLogin}
+            disabled={!userID}
+            block
           >
             Login
           </Button>
-        </form>
+        </Form>
       </div>
     )
   }

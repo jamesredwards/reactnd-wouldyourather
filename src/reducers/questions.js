@@ -1,29 +1,34 @@
-import { RECEIVE_QUESTIONS, ADD_QUESTION, SAVE_QUESTION_ANSWER } from '../actions/questions'
+import { RECEIVE_QUESTIONS, SAVE_QUESTION_ANSWER } from '../actions/questions'
+import { ADD_QUESTION } from '../actions/users'
 
 export default function questions(state = {}, action) {
+
   switch (action.type) {
     case RECEIVE_QUESTIONS:
       return {
         ...state,
         ...action.questions
       }
-    case ADD_QUESTION:
-      const { question } = action
-      return {
-        ...state,
-        [question.id]: question
-      }
+
     case SAVE_QUESTION_ANSWER:
-      const { authedUser, questionID, answer } = action
+      const { authedUser, qid, answer } = action
       return {
         ...state,
-        [questionID]: {
+        [qid]: {
+          ...state[qid],
           [answer]: {
-            ...state[questionID][answer],
-            votes: state[questionID][answer].votes.concat([authedUser])
+            ...state[qid][answer],
+            votes: state[qid][answer].votes.concat([authedUser])
           }
         }
       }
+
+    case ADD_QUESTION:
+      return {
+        ...state,
+        [action.question.id]: action.question
+      }
+
     default:
       return state
   }

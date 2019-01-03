@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { handleAddQuestion } from '../actions/questions'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-
+import { Card, CardBody, CardHeader, FormGroup, Label, Input, Form, Button } from 'reactstrap';
 
 class NewQuestion extends Component {
 
@@ -13,6 +13,8 @@ class NewQuestion extends Component {
   }
 
   handleOptionOneChange = (e) => {
+    e.preventDefault()
+
     const text = e.target.value
     this.setState(() => ({
       optionOne: text
@@ -20,6 +22,7 @@ class NewQuestion extends Component {
   }
 
   handleOptionTwoChange = (e) => {
+    e.preventDefault()
     const text = e.target.value
     this.setState(() => ({
       optionTwo: text
@@ -31,14 +34,12 @@ class NewQuestion extends Component {
 
     const { optionOne, optionTwo } = this.state
     const { dispatch, id } = this.props
-
-    dispatch(handleAddQuestion(optionOne, optionTwo, id))
-
     this.setState(() => ({
       optionOne: '',
       optionTwo: '',
       toHome: id ? false : true,
     }))
+    dispatch(handleAddQuestion(optionOne, optionTwo))
   }
 
   render() {
@@ -49,34 +50,48 @@ class NewQuestion extends Component {
     }
     return (
       <div>
-        <h3 className="center">Would you rather...?</h3>
-        <p></p>
-        <form className="new-question" onSubmit={this.handleSubmit}>
-          <textarea
-            placeholder="Option 1..."
-            value={optionOne}
-            onChange={this.handleOptionOneChange}
-            className="textarea"
-          />
-          <span></span>
-          <textarea
-            placeholder="Option 2..."
-            value={optionTwo}
-            onChange={this.handleOptionTwoChange}
-            className="textarea"
-          />
-          <span></span>
-          <button
-            className="btn"
-            type="submit"
-            disabled={optionOne === "" || optionTwo === ""}
-          >
-            Submit
-          </button>
-        </form>
+        <Card>
+          <CardHeader className="text-muted" tag="h4">
+            Would you rather...
+          </CardHeader>
+          <CardBody>
+            <Form onSubmit={this.handleSubmit}>
+              <FormGroup>
+                <Label for="optionOne">
+                  <Input
+                    type="text"
+                    name="optionOne"
+                    value={optionOne}
+                    onChange={this.handleOptionOneChange}
+                    placeholder="Option One"
+                  />{' '}
+                </Label>
+              </FormGroup>
+              <FormGroup>
+                <Label for="optionTwo">
+                  <Input
+                    type="text"
+                    name="optionOne"
+                    value={optionTwo}
+                    onChange={this.handleOptionTwoChange}
+                    placeholder="Option Two"
+                  />{' '}
+                </Label>
+              </FormGroup>
+              <Button
+                disabled={optionOne === '' || optionTwo === ''}
+                onClick={this.handleSubmit}
+                block
+              >
+                Submit new question
+              </Button>
+            </Form>
+          </CardBody>
+        </Card>
       </div>
     )
   }
 }
+
 
 export default connect()(NewQuestion)

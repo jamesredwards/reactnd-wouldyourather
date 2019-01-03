@@ -6,8 +6,10 @@ import NewQuestion from './NewQuestion'
 import LoadingBar from 'react-redux-loading'
 import Home from './Home'
 import LeaderBoard from './LeaderBoard'
-import Nav from './Nav'
-import Login from './Login';
+import Navigation from './Nav'
+import Login from './Login'
+import QuestionDetail from './QuestionDetail'
+import PageNotFound from './PageNotFound'
 
 
 class App extends Component {
@@ -22,17 +24,21 @@ class App extends Component {
         <Fragment>
           <LoadingBar />
           <div className="container">
-            <Nav />
-            <Switch>
-              {this.props.loading === true
-                ? <Route path="/" exact component={Login} />
-                : <div>
-                  <Route path="/" exact component={Home} />
-                  <Route path="/leaderboard" component={LeaderBoard} />
-                  <Route path="/newquestion" component={NewQuestion} />
-                </div>
-              }
-            </Switch>
+            <div className="content">
+              <Navigation />
+              <Switch>
+                {this.props.loading === true
+                  ? <Route path="/" exact component={Login} />
+                  : <Fragment>
+                    <Route path="/" exact component={Home} />
+                    <Route path="/leaderboard" component={LeaderBoard} />
+                    <Route path="/add" component={NewQuestion} />
+                    <Route path="/question/:id" component={QuestionDetail} />
+                  </Fragment>
+                }
+                <Route component={PageNotFound}></Route>
+              </Switch>
+            </div>
           </div>
         </Fragment>
       </Router>
@@ -42,7 +48,8 @@ class App extends Component {
 
 function mapStateToProps({ authedUser }) {
   return {
-    loading: authedUser === null
+    loading: authedUser === null,
+    authedUser: authedUser
   }
 }
 
