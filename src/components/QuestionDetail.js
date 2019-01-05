@@ -52,24 +52,37 @@ class QuestionDetail extends Component {
                   {question.optionOne.text}
                 </Label>
                 <div></div>
-                <Badge color="info">{`[${optionOneVotes} of ${totalVotes.toFixed(0)} votes cast]`}</Badge> {' '}
-                {isAnswered && optionOneAnswered ?
-                  <Badge color="success">Your response</Badge> : null
+                {isAnswered ?
+                  <div>
+                    <Badge color="info">{`[${optionOneVotes} of ${totalVotes.toFixed(0)} votes cast]`}</Badge> {' '}
+                    {optionOneAnswered ?
+                      <Badge color="success">Your response</Badge>
+                      : null
+                    }
+                    <div></div>
+                    <Progress value={optionOnePct}>{`${optionOnePct.toFixed(0)}%`}</Progress> {' '}
+                    <div></div>
+                  </div>
+                  : null
                 }
-                <div></div>
-                <Progress value={optionOnePct}>{`${optionOnePct.toFixed(0)}%`}</Progress> {' '}
-                <div></div>
                 <Label check>
                   <Input type="radio" name="radio1" value="optionTwo" onChange={this.handleRadioSelected} />{' '}
                   {question.optionTwo.text}
                 </Label>
                 <div></div>
-                <Badge color="info">{`[${optionTwoVotes} of ${totalVotes.toFixed(0)} votes cast]`}</Badge> {' '}
-                {isAnswered && optionTwoAnswered ?
-                  <Badge color="success">Your response</Badge> : null
+                {isAnswered ?
+                  <div>
+                    <Badge color="info">{`[${optionTwoVotes} of ${totalVotes.toFixed(0)} votes cast]`}</Badge> {' '}
+                    {optionTwoAnswered ?
+                      <Badge color="success">Your response</Badge>
+                      : null
+                    }
+                    <div></div>
+                    <Progress value={optionTwoPct}>{`${optionTwoPct.toFixed(0)}%`}</Progress> {' '}
+                  </div>
+                  : null
                 }
-                <div></div>
-                <Progress value={optionTwoPct}>{`${optionTwoPct.toFixed(0)}%`}</Progress> {' '}
+
               </FormGroup>
             </FormGroup>
             <Button

@@ -29,7 +29,7 @@ class Home extends Component {
               className={classnames({ active: this.state.activeTab === '1' })}
               onClick={() => { this.toggle('1'); }}
             >
-              Answered Questions
+              Unanswered Questions
             </NavLink>
           </NavItem>
           <NavItem>
@@ -37,19 +37,19 @@ class Home extends Component {
               className={classnames({ active: this.state.activeTab === '2' })}
               onClick={() => { this.toggle('2'); }}
             >
-              Unanswered Questions
+              Answered Questions
             </NavLink>
           </NavItem>
         </Nav>
         <TabContent activeTab={this.state.activeTab}>
-          <TabPane tabId="1">
+          <TabPane tabId="2">
             {
               answeredQuestions.map(qid =>
                 <Question key={qid} id={qid} />
               )
             }
           </TabPane>
-          <TabPane tabId="2">
+          <TabPane tabId="1">
             {
               unansweredQuestions.map(qid =>
                 <Question key={qid} id={qid} />
