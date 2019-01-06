@@ -18,4 +18,4 @@ npm or yarn
 ### Notes
 1. Existing questions and answers are provided through _DATA.js.
 2. Due to the way this "backend" is setup, added questions will not persist between sessions and attempting to navigate directly to the added question url will result in being asked to login again and then a 404 page.
-3. Avatar icons source from the React Nanodegree Chirper App.
+3. Avatar icons sourced through https://tylermcginnis.com/would-you-rather/ in the React Nanodegree Chirper App code along.
