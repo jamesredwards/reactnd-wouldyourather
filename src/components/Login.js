@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
 import { connect } from 'react-redux'
 import { setAuthedUser } from '../actions/authedUser'
+import { Redirect } from 'react-router-dom'
 
 class Login extends Component {
 
@@ -27,8 +28,12 @@ class Login extends Component {
   }
 
   render() {
-    const { users } = this.props
+    const { authedUser, users, referrer } = this.props
     const { userID } = this.state
+
+    if (authedUser !== null) {
+      return <Redirect to={referrer || '/'} />
+    }
 
     return (
       <div className="Login">
@@ -62,8 +67,12 @@ class Login extends Component {
   }
 }
 
-function mapStateToProps({ users }) {
-  return { users }
+function mapStateToProps({ authedUser, users }, props) {
+  return {
+    authedUser,
+    users,
+    referrer: props && props.location.state && props.location.state.referrer,
+  }
 }
 
 function mapDispatchToProps(dispatch) {
