@@ -13,41 +13,6 @@ import PageNotFound from './PageNotFound'
 import PrivateRoute from './PrivateRoute'
 
 
-/*class App extends Component {
-  componentDidMount() {
-    this.props.dispatch(handleInitialData())
-  }
-  render() {
-
-    return (
-
-      <Router>
-        <Fragment>
-          <LoadingBar />
-          <div className="container">
-            <div className="content">
-              <Navigation />
-              <Switch>
-                {this.props.loading === true
-                  ? <Route path="/login" exact component={Login} />
-                  :
-                  <Fragment>
-                    <Route path="/" exact component={Home} />
-                    <Route path="/leaderboard" component={LeaderBoard} />
-                    <Route path="/add" component={NewQuestion} />
-                    <Route path="/question/:id" component={QuestionDetail} />
-                  </Fragment>
-                }
-                <Route component={PageNotFound}></Route>
-              </Switch>
-            </div>
-          </div>
-        </Fragment>
-      </Router>
-    )
-  }
-}*/
-
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData())
