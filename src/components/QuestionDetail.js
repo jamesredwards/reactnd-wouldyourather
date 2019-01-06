@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { handleSaveQuestionAnswer } from '../actions/questions'
 import { Card, CardBody, CardHeader, Progress, Button, Form, FormGroup, Label, Input, Badge } from 'reactstrap'
 import UserAvatar from './UserAvatar';
+import PageNotFound from './PageNotFound'
 
 class QuestionDetail extends Component {
   state = {
@@ -24,11 +25,15 @@ class QuestionDetail extends Component {
 
   render() {
 
-    const { question, author, isAnswered, optionOneAnswered, optionTwoAnswered } = this.props
+    const { question, author, authedUser } = this.props
 
     if (!question) {
-      return <p>Question doesn't exist</p>
+      return <PageNotFound />
     }
+
+    const isAnswered = question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser)
+    const optionOneAnswered = question.optionOne.votes.includes(authedUser)
+    const optionTwoAnswered = question.optionTwo.votes.includes(authedUser)
 
     const { selectedOption } = this.state
     const optionOneVotes = question.optionOne.votes.length
@@ -111,16 +116,12 @@ function mapDispatchToProps(dispatch, props) {
 function mapStateToProps({ questions, users, authedUser }, props) {
   const { id } = props.match.params
   const question = questions[id]
-  const isAnswered = question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser)
-  const optionOneAnswered = question.optionOne.votes.includes(authedUser)
-  const optionTwoAnswered = question.optionTwo.votes.includes(authedUser)
+
 
   return {
     question: question ? question : null,
     author: question ? users[question.author] : null,
-    isAnswered: isAnswered,
-    optionOneAnswered: optionOneAnswered,
-    optionTwoAnswered: optionTwoAnswered
+    authedUser: authedUser
   }
 }
 
